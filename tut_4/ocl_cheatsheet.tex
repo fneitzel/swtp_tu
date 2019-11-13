@@ -1,0 +1,101 @@
+
+
+
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\begin{document}
+	
+\section{Collections}
+	\begin{center}
+		\begin{tabular}{||c c c c c||}
+			\hline
+			& Set & Bag & OrderedSet & Sequence  \\ [0.5ex]
+			\hline\hline
+			mehrfach gleiche Elemente & Nein & Ja & Nein & Ja\\
+			Reihenfolge & Nein & Nein & Ja & Ja\\
+			 [1ex]
+			\hline
+		\end{tabular}
+	\end{center}
+
+
+\section{Operationen}
+\begin{center}
+    \begin{tabular}{||c c||}
+        \hline
+        def & Beschreibung  \\ [0.5ex]
+        \hline\hline
+        ->size() & Anzahl der Elemente in der Collection\\
+        
+        ->isEmpty() & Ob die Collection leer ist\\
+        
+        ->includes(obj) & True, wenn das Objekt in der Collection enthalten ist\\
+        
+        ->excludes(obj) & True, wenn das Objekt nicht(!) in der Collection enthalten ist\\
+        
+        ->count(obj) & Zählt, wie häufig das Objekt in der Collection vorkommt\\ [1ex]
+        \hline
+    \end{tabular}
+\end{center}
+
+Collections ohne Reihenfolge erlauben Mengenoperationen:
+\begin{center}
+	\begin{tabular}{||c c||}
+		\hline
+		def & Beschreibung  \\ [0.5ex]
+		\hline\hline
+		= & Checkt ob die beiden Collections gleich sind\\
+
+		->including(obj) & Fügt das Element zur Collection hinzu\\
+
+		->excluding(obj) & Entfernt das Objekt von der Collection\\
+
+		->union(otherCollection) & Vereinigt 2 Collections\\
+
+		->intersection(otherCollection) & Schnittmenge von 2 Collections\\ [1ex]
+		\hline
+	\end{tabular}
+\end{center}
+
+\section{Collections Umwandlung}
+Zwischen den Collections kann umgewandelt werden (gecasted). Dazu eignen sich folgende Befehle:
+\begin{itemize}
+	\item ->asSet()
+	\item ->asBag()
+	\item ->asOrderedSet()
+\end{itemize}
+
+\section{Filtern, Modifizieren, Reduzieren}
+OCL erlaubt es eine Collection zu filtern.
+\\Set\{10,20,30\}->select(i:Integer| i>20) $\equiv$ Set\{30\}
+\\Set\{10,20,30\}->reject(i:Integer| i<=20) $\equiv$ Set\{30\}
+\\\\Außerdem können wir auch die Elemente in einer Collection modifizieren:
+\\Set\{10,20,30\}->collect(i:Integer| i+1) $\equiv$ Bag\{11,21,31\}
+\\\\Und wir können auch über die Elemente iterieren und auf einen Wert reduzieren:
+\\Set\{10,20,30\}->iterate(x:Integer;acc:Integer = 0 | acc+x) $\equiv$ 60
+\\\\Das Prinzip von Filtern, Modifizieren und Reduzieren wird uns wieder in Haskell begegnen. Deswegen wenn ihr es hier verstanden habt, dann fällt es euch später einfacher. Das Prinzip ist nicht nur auf Haskell bezogen, ihr findet es in jeder Programmiersprache wieder.
+
+\section{Quantoren}
+\begin{itemize}
+	\item Set\{10,20,30\}->forAll(x:Integer|x>10) $\equiv$ false
+	\item Set\{10,20,30\}->exists(x:Integer|x>10) $\equiv$ true
+\end{itemize}
+
+\section{Closure}
+Wenn ihr Daten akkumulieren wollt, dann könnt ihr eine Closure verwenden. OCL ist dank der Closures übrigens Turing-Vollständig.
+Um alle Zahlen von 1-20 aufzulisten, könnt ihr folgenden Ausdruck verwenden:
+\\\\Set\{1\}->closure(x|if x < 20 then x+1 else x endif)
+\\Die Closure bricht dann ab, wenn sie 2x mal das selbe Objekt hinzufügt zum Set.Dies passiert bei der 20. 
+
+\section{Typenüberprüfung}
+\begin{itemize}
+	\item obj.oclIsTypeOf(Type) => Überprüft den tatsächlichen Typen des Objekts
+	\item obj.oclIsKindOf(Type) => Überprüft ob das Objekt dem Typ entspricht (Typ oder Subtyp)
+\end{itemize}
+
+
+\section{Boolische Operatoren}
+implies, xor, and, or, not, =, <>
+
+
+\end{document}
